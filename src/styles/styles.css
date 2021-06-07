@@ -593,6 +593,24 @@ video {
   padding-right: 1rem;
 }
 
+.form_btn {
+  --tw-bg-opacity: 1;
+  background-color: rgba(55, 48, 163, var(--tw-bg-opacity));
+  border-radius: 0.375rem;
+  margin-top: 2.5rem;
+}
+
+.form_btn:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.form_btn {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 100%;
+}
+
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));

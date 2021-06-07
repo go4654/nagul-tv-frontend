@@ -1,13 +1,23 @@
-import { isLoggedInVar } from "../apollo";
 import { routes } from "../routes";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Header } from "../components/Header";
+import { Login } from "../pages/Login";
+import { NotFound } from "../components/NotFound";
+import { CreateAccount } from "../pages/CreateAccount";
 
 const anyRoute = [
   {
     path: routes.home,
     components: <Home />,
+  },
+  {
+    path: routes.login,
+    components: <Login />,
+  },
+  {
+    path: routes.createAccount,
+    components: <CreateAccount />,
   },
 ];
 
@@ -17,10 +27,14 @@ const LoggedOutRouter = () => {
       <Header />
       <Switch>
         {anyRoute.map((route) => (
-          <Route key={route.path} path={routes.home} exact>
+          <Route key={route.path} path={route.path} exact>
             {route.components}
           </Route>
         ))}
+
+        <Route>
+          <NotFound />
+        </Route>
       </Switch>
     </Router>
   );

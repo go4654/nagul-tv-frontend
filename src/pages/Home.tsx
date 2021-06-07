@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import { PageTitle } from "../components/PageTitle";
 
 export const Home = () => {

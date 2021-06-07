@@ -6,4 +6,8 @@
   @apply px-4 py-2 bg-blue-500;
 }
 
+.form_btn {
+  @apply w-full py-4 focus:outline-none bg-indigo-800 mt-10 rounded-md;
+}
+
 @tailwind utilities;
