@@ -8,9 +8,6 @@ import { setContext } from "@apollo/client/link/context";
 
 const TOKEN = " TOKEN";
 
-const token = localStorage.getItem(TOKEN);
-console.log(token);
-
 export const isLoggedInVar = makeVar(Boolean(localStorage.getItem(TOKEN)));
 
 export const userLoggedIn = (token: string) => {
@@ -19,6 +16,7 @@ export const userLoggedIn = (token: string) => {
 };
 
 export const userLoggedOut = () => {
+  window.location.href = "/";
   localStorage.removeItem(TOKEN);
   isLoggedInVar(false);
 };

@@ -1,3 +1,5 @@
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { userLoggedOut } from "../apollo";
 import { useMe } from "../hooks/useMe";
@@ -16,16 +18,23 @@ export const Header = () => {
           </Link>
         </div>
         <div className="text-white cursor-pointer">
-          {userData?.me.avatar ? (
-            <div
-              className="w-10 h-10 bg-cover bg-center"
-              style={{ backgroundImage: `url(${userData.me.avatar})` }}
-            ></div>
+          {userData ? (
+            <Link to={routes.editProfile}>
+              {userData.me.avatar ? (
+                <div
+                  className="w-10 h-10 rounded-full bg-gray-100 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${userData.me.avatar})` }}
+                ></div>
+              ) : (
+                <div className="w-10 h-10 rounded-full bg-gray-100 flex justify-center items-center text-3xl overflow-hidden text-gray-400 pt-3">
+                  <FontAwesomeIcon icon={faUser} />
+                </div>
+              )}
+            </Link>
           ) : (
             <div className="w-36 flex justify-between">
               <Link to={routes.login}>로그인</Link>
               <Link to={routes.createAccount}>회원가입</Link>
-              <button onClick={() => userLoggedOut()}>로그아웃</button>
             </div>
           )}
         </div>

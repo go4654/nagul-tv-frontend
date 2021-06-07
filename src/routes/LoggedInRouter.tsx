@@ -8,18 +8,21 @@ import { Header } from "../components/Header";
 import { NotFound } from "../components/NotFound";
 import { ME_QUERY, useMe } from "../hooks/useMe";
 import { meQuery } from "../__generated__/meQuery";
+import { EditProfile } from "../pages/EditProfile";
 
 const clientRoute = [
   {
     path: routes.home,
     components: <Home />,
   },
+  {
+    path: routes.editProfile,
+    components: <EditProfile />,
+  },
 ];
 
 const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
-
-  console.log(data);
 
   if (!data || loading || error) {
     return (
@@ -33,11 +36,12 @@ const LoggedInRouter = () => {
     <Router>
       <Header />
       <Switch>
-        {clientRoute.map((route) => (
-          <Route key={route.path} path={route.path} exact>
-            {route.components}
-          </Route>
-        ))}
+        {data.me.role === "Client" &&
+          clientRoute.map((route) => (
+            <Route key={route.path} path={route.path} exact>
+              {route.components}
+            </Route>
+          ))}
 
         <Route>
           <NotFound />
