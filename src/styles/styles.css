@@ -611,6 +611,23 @@ video {
   width: 100%;
 }
 
+.input {
+  --tw-bg-opacity: 1;
+  background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+  border-bottom-width: 1px;
+}
+
+.input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.input {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));

@@ -69,7 +69,7 @@ export const Home = () => {
           )}
 
           <span className="text-lg opacity-50">
-            {page} of {data?.allVideo.totalPages}
+            {page} / {data?.allVideo.totalPages}
           </span>
 
           {page !== data?.allVideo?.totalPages ? (

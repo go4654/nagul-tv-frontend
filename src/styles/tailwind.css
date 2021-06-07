@@ -10,4 +10,8 @@
   @apply w-full py-4 focus:outline-none bg-indigo-800 mt-10 rounded-md;
 }
 
+.input {
+  @apply w-full bg-gray-800 border-b py-2 focus:outline-none;
+}
+
 @tailwind utilities;

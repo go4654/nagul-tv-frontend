@@ -29,6 +29,10 @@ export interface LoginInput {
   password: string;
 }
 
+export interface VideoDetailInput {
+  videoId: number;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

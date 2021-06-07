@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import { NotFound } from "../components/NotFound";
 import { useMe } from "../hooks/useMe";
 import { EditProfile } from "../pages/EditProfile";
+import { VideoDetail } from "../pages/VideoDetail";
 
 const clientRoute = [
   {
@@ -14,6 +15,10 @@ const clientRoute = [
   {
     path: routes.editProfile,
     components: <EditProfile />,
+  },
+  {
+    path: routes.videoDetail,
+    components: <VideoDetail />,
   },
 ];
 

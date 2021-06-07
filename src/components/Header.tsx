@@ -9,7 +9,7 @@ export const Header = () => {
   console.log(userData);
 
   return (
-    <header className="max-w-full w-full fixed  bg-gray-800 shadow-xl flex justify-center items-center">
+    <header className="max-w-full w-full fixed  bg-gray-800 shadow-xl flex justify-center items-center z-50">
       <div className="max-w-7xl w-full flex justify-between items-center py-5">
         <div className="w-24">
           <Link to={routes.home}>

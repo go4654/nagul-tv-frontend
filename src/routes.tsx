@@ -3,4 +3,5 @@ export const routes = {
   login: "/login",
   createAccount: "/create-account",
   editProfile: "/edit-profile",
+  videoDetail: "/video-detail/:id",
 };

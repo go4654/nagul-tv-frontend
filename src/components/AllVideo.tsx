@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { routes } from "../routes";
 
 interface IAllVideoProps {
   id: number;
@@ -14,7 +15,7 @@ export const AllVideo: React.FC<IAllVideoProps> = ({
   videoDesc,
 }) => {
   return (
-    <Link key={id} to="#">
+    <Link key={id} to={`/video-detail/${id}`}>
       <div key={id} className="w-96">
         <div
           className="w-full h-64 bg-cover bg-center"
