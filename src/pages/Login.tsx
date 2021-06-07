@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { userLoggedIn } from "../apollo";
 import { FormButton } from "../components/FormButton";
 import { FormError } from "../components/FormError";
@@ -24,8 +24,14 @@ interface IFormProps {
   password: string;
 }
 
+interface ILocationProps {
+  message: string;
+}
+
 export const Login = () => {
   const history = useHistory();
+  const location = useLocation<ILocationProps>();
+  console.log(location);
 
   const {
     register,
@@ -76,6 +82,10 @@ export const Login = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="flex justify-center items-center flex-col"
           >
+            <div className="text-green-500 font-semibold mb-8">
+              {location?.state?.message}
+            </div>
+
             <div className="w-full ">
               <div className="opacity-50">ID</div>
               <input

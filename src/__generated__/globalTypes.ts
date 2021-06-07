@@ -12,6 +12,14 @@ export enum UserRole {
   Owner = "Owner",
 }
 
+export interface CreateAccountInput {
+  userName: string;
+  firstName: string;
+  email: string;
+  password: string;
+  role?: UserRole | null;
+}
+
 export interface LoginInput {
   userName: string;
   password: string;
