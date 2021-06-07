@@ -24,9 +24,18 @@ export interface CreateAccountInput {
   role?: UserRole | null;
 }
 
+export interface CreateCommentInput {
+  comment: string;
+  videoId: number;
+}
+
 export interface LoginInput {
   userName: string;
   password: string;
+}
+
+export interface SeeCommentInput {
+  page?: number | null;
 }
 
 export interface VideoDetailInput {
