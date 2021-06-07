@@ -1,13 +1,9 @@
-import { isLoggedInVar, userLoggedOut } from "../apollo";
-import { CreateAccount } from "../pages/CreateAccount";
 import { Home } from "../pages/Home";
-import { Login } from "../pages/Login";
 import { routes } from "../routes";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Header } from "../components/Header";
 import { NotFound } from "../components/NotFound";
-import { ME_QUERY, useMe } from "../hooks/useMe";
-import { meQuery } from "../__generated__/meQuery";
+import { useMe } from "../hooks/useMe";
 import { EditProfile } from "../pages/EditProfile";
 
 const clientRoute = [

@@ -12,6 +12,10 @@ export enum UserRole {
   Owner = "Owner",
 }
 
+export interface AllVideoInput {
+  page?: number | null;
+}
+
 export interface CreateAccountInput {
   userName: string;
   firstName: string;

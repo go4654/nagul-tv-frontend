@@ -5,6 +5,7 @@ import { useHistory, useLocation } from "react-router";
 import { userLoggedIn } from "../apollo";
 import { FormButton } from "../components/FormButton";
 import { FormError } from "../components/FormError";
+import { PageTitle } from "../components/PageTitle";
 import { Section } from "../components/Section";
 import { routes } from "../routes";
 import { login, loginVariables } from "../__generated__/login";
@@ -75,6 +76,7 @@ export const Login = () => {
 
   return (
     <Section>
+      <PageTitle title={"로그인"} />
       <div className="h-screen flex justify-center items-center flex-col">
         <h1 className="text-4xl font-semibold mb-14">Log in</h1>
         <div className="w-5/12">

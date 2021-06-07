@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { FormButton } from "../components/FormButton";
 import { FormError } from "../components/FormError";
+import { PageTitle } from "../components/PageTitle";
 import { Section } from "../components/Section";
 import { routes } from "../routes";
 import {
@@ -82,6 +83,7 @@ export const CreateAccount = () => {
 
   return (
     <Section>
+      <PageTitle title={"회원가입"} />
       <div className="h-screen flex justify-center items-center flex-col">
         <h1 className="text-4xl font-semibold mb-14">Create Account</h1>
         <div className="w-5/12">
