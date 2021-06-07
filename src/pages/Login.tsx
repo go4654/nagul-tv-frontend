@@ -31,7 +31,6 @@ interface ILocationProps {
 export const Login = () => {
   const history = useHistory();
   const location = useLocation<ILocationProps>();
-  console.log(location);
 
   const {
     register,
@@ -48,7 +47,8 @@ export const Login = () => {
     } = data;
     if (ok && token) {
       userLoggedIn(token);
-      history.push(routes.home);
+      history.replace(routes.home);
+      window.location.reload();
     }
   };
 

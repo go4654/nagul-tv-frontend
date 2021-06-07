@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { userLoggedOut } from "../apollo";
 import { useMe } from "../hooks/useMe";
 import { routes } from "../routes";
 
@@ -24,6 +25,7 @@ export const Header = () => {
             <div className="w-36 flex justify-between">
               <Link to={routes.login}>로그인</Link>
               <Link to={routes.createAccount}>회원가입</Link>
+              <button onClick={() => userLoggedOut()}>로그아웃</button>
             </div>
           )}
         </div>
