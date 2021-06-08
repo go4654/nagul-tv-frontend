@@ -6,7 +6,7 @@ import { PageTitle } from "../components/PageTitle";
 import { Section } from "../components/Section";
 import { allVideo, allVideoVariables } from "../__generated__/allVideo";
 
-const ALL_VIDEO_QUERY = gql`
+export const ALL_VIDEO_QUERY = gql`
   query allVideo($input: AllVideoInput!) {
     allVideo(input: $input) {
       ok
@@ -38,8 +38,6 @@ export const Home = () => {
   const onNextPageClick = () => setPage((current) => current + 1);
   const onPrevPageClick = () => setPage((current) => current - 1);
 
-  console.log(data);
-
   return (
     <Section>
       <PageTitle title="홈" />
@@ -47,7 +45,7 @@ export const Home = () => {
       <div className="py-40 flex justify-center flex-col items-center">
         <h3 className="text-7xl">나굴 TV 맘껏 보세요!👍</h3>
 
-        <div className="mt-32 grid grid-cols-3 gap-x-10">
+        <div className="mt-32 grid grid-cols-3 gap-x-10 gap-y-24">
           {data?.allVideo.videos?.map((video) => (
             <AllVideo
               key={video.id}

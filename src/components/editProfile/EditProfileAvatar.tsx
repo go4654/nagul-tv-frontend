@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import gql from "graphql-tag";
 import { useState } from "react";
@@ -10,7 +10,9 @@ import {
   editProfileAvatarVariables,
 } from "../../__generated__/editProfileAvatar";
 import imageCompression from "browser-image-compression";
-import { ME_QUERY } from "../../hooks/useMe";
+import { ME_QUERY, useMe } from "../../hooks/useMe";
+import { Link } from "react-router-dom";
+import { routes } from "../../routes";
 
 const EDIT_PROFILE_MUTATION = gql`
   mutation editProfileAvatar($input: EditProfileInput!) {
@@ -47,8 +49,9 @@ export const EditProfileAvatar: React.FC<IEditProfileAvatarProps> = ({
   const [previewAvatar, setPreviewAvatar] = useState<IPrevewProps>();
   const [avatarFile, setAvatarFile] = useState<IAvatarProps>();
   const [bottomMsg, setButtomMsg] = useState(0);
+  const { data: userData } = useMe();
 
-  const { register, handleSubmit, getValues } = useForm<IFormProps>({
+  const { register, handleSubmit } = useForm<IFormProps>({
     mode: "onChange",
   });
 
@@ -122,15 +125,19 @@ export const EditProfileAvatar: React.FC<IEditProfileAvatarProps> = ({
       {avatar ? (
         <label
           htmlFor="avatarImg"
-          className="w-40 h-40 cursor-pointer rounded-full bg-gray-100 bg-center bg-cover"
+          className="w-40 relative h-40 cursor-pointer rounded-full bg-gray-100 bg-center bg-cover"
           style={{
             backgroundImage: `url(${previewAvatar ? previewAvatar : avatar})`,
           }}
-        ></label>
+        >
+          <div className="w-10 h-10 rounded-full bg-indigo-500 absolute right-0  flex justify-center items-center">
+            <FontAwesomeIcon icon={faEdit} />
+          </div>
+        </label>
       ) : (
         <label
           htmlFor="avatarImg"
-          className="w-10 h-10 cursor-pointer rounded-full bg-gray-100 flex justify-center items-center text-3xl overflow-hidden text-gray-400 pt-3"
+          className="w-40 h-40 cursor-pointer rounded-full bg-gray-100 flex justify-center items-center text-9xl overflow-hidden text-gray-400 pt-12"
         >
           <FontAwesomeIcon icon={faUser} />
         </label>
@@ -150,7 +157,7 @@ export const EditProfileAvatar: React.FC<IEditProfileAvatarProps> = ({
             onChange={onChangeAvatar}
           />
           <button
-            className={`text-sm py-4 block w-full mt-6 text-center cursor-pointer rounded-md focus:outline-none ${
+            className={`text-sm py-4 block w-full mt-6 text-center  rounded-md focus:outline-none ${
               previewAvatar
                 ? "bg-indigo-600 cursor-pointer"
                 : "bg-indigo-400 opacity-40 cursor-default"
@@ -160,6 +167,15 @@ export const EditProfileAvatar: React.FC<IEditProfileAvatarProps> = ({
           </button>
         </form>
       </div>
+
+      {userData?.me.role === "Owner" && (
+        <Link
+          className="text-sm text-center py-4 w-full mt-4 rounded-md bg-red-400"
+          to={routes.admin}
+        >
+          <div>영상 등록</div>
+        </Link>
+      )}
 
       <button
         className="text-sm py-4 w-full mt-4 rounded-md bg-indigo-600"

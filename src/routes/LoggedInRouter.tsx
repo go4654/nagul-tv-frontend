@@ -6,6 +6,8 @@ import { NotFound } from "../components/NotFound";
 import { useMe } from "../hooks/useMe";
 import { EditProfile } from "../pages/EditProfile";
 import { VideoDetail } from "../pages/VideoDetail";
+import { AdminPage } from "../pages/Owner/AdminPage";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const clientRoute = [
   {
@@ -35,6 +37,10 @@ const ownerRoute = [
     path: routes.videoDetail,
     components: <VideoDetail />,
   },
+  {
+    path: routes.admin,
+    components: <AdminPage />,
+  },
 ];
 
 const LoggedInRouter = () => {
@@ -43,7 +49,9 @@ const LoggedInRouter = () => {
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
-        <h3 className="font-medium text-xl tracking-wide">로딩중..</h3>
+        <h3 className="font-medium text-xl tracking-wide">
+          <ClipLoader color="salmon" loading={loading} size={50} />
+        </h3>
       </div>
     );
   }
@@ -60,7 +68,7 @@ const LoggedInRouter = () => {
           ))}
 
         {data.me.role === "Owner" &&
-          clientRoute.map((route) => (
+          ownerRoute.map((route) => (
             <Route key={route.path} path={route.path} exact>
               {route.components}
             </Route>

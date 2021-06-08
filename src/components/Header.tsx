@@ -6,7 +6,6 @@ import { routes } from "../routes";
 
 export const Header = () => {
   const { data: userData } = useMe();
-  console.log(userData);
 
   return (
     <header className="max-w-full w-full fixed  bg-gray-800 shadow-xl flex justify-center items-center z-50">
@@ -21,7 +20,7 @@ export const Header = () => {
             <Link to={routes.editProfile}>
               {userData.me.avatar ? (
                 <div
-                  className="w-10 h-10 rounded-full bg-gray-100 bg-center bg-cover"
+                  className="w-10 h-10 rounded-full bg-gray-100 bg-center bg-cover border border-gray-600"
                   style={{ backgroundImage: `url(${userData.me.avatar})` }}
                 ></div>
               ) : (

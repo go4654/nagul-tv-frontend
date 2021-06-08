@@ -11,6 +11,7 @@ import {
 import { VIDEO_DETAIL_QUERY } from "../pages/VideoDetail";
 import { useMe } from "../hooks/useMe";
 import { useState } from "react";
+import { FormButton } from "./FormButton";
 
 const CREATE_COMMENT_MUTATION = gql`
   mutation createComment($input: CreateCommentInput!) {
@@ -34,7 +35,13 @@ export const Comment: React.FC = () => {
   const { data: userData } = useMe();
   const { id } = useParams<IParamsProps>();
 
-  const { register, handleSubmit, getValues, setValue } = useForm<IFormProps>({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    setValue,
+    formState: { errors, isValid },
+  } = useForm<IFormProps>({
     mode: "onChange",
   });
 
@@ -95,7 +102,7 @@ export const Comment: React.FC = () => {
         <div className="w-10 h-10 bg-gray-200 rounded-full flex justify-center items-center text-3xl overflow-hidden text-gray-400 mr-5">
           <FontAwesomeIcon className="mt-3" icon={faUser} />
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex ">
           <input
             {...register("comment", {
               required: true,
@@ -104,7 +111,9 @@ export const Comment: React.FC = () => {
             type="text"
             placeholder="댓글 추가..."
           />
-          <button className="hidden"></button>
+          <button className="w-24 ml-4 h-10 bg-gray-600 text-sm rounded flex justify-center items-center ">
+            댓글 등록
+          </button>
         </form>
       </div>
 

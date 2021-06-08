@@ -29,6 +29,17 @@ export interface CreateCommentInput {
   videoId: number;
 }
 
+export interface CreateVideoInput {
+  video: string;
+  coverImg?: string | null;
+  videoName: string;
+  videoDesc: string;
+}
+
+export interface DeleteVideoInput {
+  videoId: number;
+}
+
 export interface EditProfileInput {
   firstName?: string | null;
   email?: string | null;

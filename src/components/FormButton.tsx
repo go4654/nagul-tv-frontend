@@ -1,3 +1,5 @@
+import ClipLoader from "react-spinners/ClipLoader";
+
 interface IFromButtonProps {
   canClick: boolean;
   message: string;
@@ -17,7 +19,11 @@ export const FormButton: React.FC<IFromButtonProps> = ({
           : "bg-indigo-600 cursor-pointer"
       }`}
     >
-      {loding ? "로딩중.." : message}
+      {loding ? (
+        <ClipLoader loading={loding} size="20" color="salmon" />
+      ) : (
+        message
+      )}
     </button>
   );
 };
