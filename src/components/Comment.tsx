@@ -1,39 +1,22 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import gql from "graphql-tag";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
-import { createAccountVariables } from "../__generated__/createAccount";
 import {
   createComment,
   createCommentVariables,
 } from "../__generated__/createComment";
 import { VIDEO_DETAIL_QUERY } from "../pages/VideoDetail";
-import { seeComment, seeCommentVariables } from "../__generated__/seeComment";
+import { useMe } from "../hooks/useMe";
+import { useState } from "react";
 
 const CREATE_COMMENT_MUTATION = gql`
   mutation createComment($input: CreateCommentInput!) {
     createComment(input: $input) {
       ok
       error
-    }
-  }
-`;
-
-const SEE_COMMENT_QUERY = gql`
-  query seeComment($input: SeeCommentInput!) {
-    seeComment(input: $input) {
-      ok
-      error
-      totalPages
-      totalResults
-      comment {
-        id
-        createdAt
-        updatedAt
-        comment
-      }
     }
   }
 `;
@@ -47,29 +30,44 @@ interface IParamsProps {
 }
 
 export const Comment: React.FC = () => {
+  const [bottomMsg, setButtomMsg] = useState(0);
+  const [opBottomMsg, setOpButtomMsg] = useState(1);
+  const { data: userData } = useMe();
   const { id } = useParams<IParamsProps>();
 
-  const { register, handleSubmit, getValues } = useForm<IFormProps>({
+  const { register, handleSubmit, getValues, setValue } = useForm<IFormProps>({
     mode: "onChange",
   });
 
-  const { data } = useQuery<seeComment, seeCommentVariables>(
-    SEE_COMMENT_QUERY,
-    {
-      variables: {
-        input: {
-          page: 1,
-        },
-      },
+  const onCompleted = (data: createComment) => {
+    const {
+      createComment: { ok },
+    } = data;
+
+    if (ok && userData?.me) {
+      setValue("comment", "");
+      setButtomMsg(1);
+      setInterval(() => {
+        setButtomMsg(0);
+      }, 2000);
     }
-  );
-  console.log(data);
+  };
 
   const [createCommentMutation, { loading }] = useMutation<
     createComment,
     createCommentVariables
   >(CREATE_COMMENT_MUTATION, {
-    refetchQueries: [{ query: SEE_COMMENT_QUERY }],
+    onCompleted,
+    refetchQueries: [
+      {
+        query: VIDEO_DETAIL_QUERY,
+        variables: {
+          input: {
+            videoId: +id,
+          },
+        },
+      },
+    ],
   });
 
   const onSubmit = () => {
@@ -102,6 +100,13 @@ export const Comment: React.FC = () => {
           />
           <button className="hidden"></button>
         </form>
+      </div>
+
+      <div
+        style={{ opacity: `${bottomMsg}` }}
+        className="rounded-lg py-4 px-32 bg-indigo-600 flex justify-center items-center fixed bottom-0 left-0  transition duration-700"
+      >
+        댓글이 등록되었습니다!
       </div>
     </div>
   );

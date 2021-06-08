@@ -11,6 +11,12 @@ export const ME_QUERY = gql`
       email
       avatar
       role
+      comments {
+        id
+        createdAt
+        updatedAt
+        comment
+      }
     }
   }
 `;
