@@ -14,10 +14,10 @@ export const FormButton: React.FC<IFromButtonProps> = ({
       className={`form_btn ${
         !canClick
           ? "bg-indigo-200 cursor-default"
-          : "bg-indigo-400 cursor-pointer"
+          : "bg-indigo-600 cursor-pointer"
       }`}
     >
-      {loding ? "로딩중.." : "로그인"}
+      {loding ? "로딩중.." : message}
     </button>
   );
 };

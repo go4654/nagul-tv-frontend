@@ -34,7 +34,6 @@ export interface EditProfileInput {
   email?: string | null;
   password?: string | null;
   avatar?: string | null;
-  userId: number;
 }
 
 export interface LoginInput {

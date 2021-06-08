@@ -1,7 +1,15 @@
+import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMe } from "../../hooks/useMe";
+import {
+  editProfile,
+  editProfileVariables,
+} from "../../__generated__/editProfile";
+import { FormButton } from "../FormButton";
+import { FormError } from "../FormError";
+import { ME_QUERY } from "../../hooks/useMe";
 
 const EDIT_PROFILE_MUTATION = gql`
   mutation editProfile($input: EditProfileInput!) {
@@ -13,12 +21,15 @@ const EDIT_PROFILE_MUTATION = gql`
 `;
 
 interface IFormProps {
+  userId: number;
   firstName: string;
   email: string;
   password: string;
+  re_password: string;
 }
 
 export const MyProfile: React.FC = () => {
+  const [bottomMsg, setButtomMsg] = useState(0);
   const { data: userData } = useMe();
 
   const {
@@ -26,7 +37,7 @@ export const MyProfile: React.FC = () => {
     handleSubmit,
     getValues,
     watch,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm<IFormProps>({
     mode: "onChange",
     defaultValues: {
@@ -38,8 +49,39 @@ export const MyProfile: React.FC = () => {
   const password = useRef({});
   password.current = watch("password", "");
 
+  const onCompleted = (data: editProfile) => {
+    const {
+      editProfile: { ok },
+    } = data;
+
+    if (ok && userData?.me) {
+      setButtomMsg(1);
+      setInterval(() => {
+        setButtomMsg(0);
+      }, 2000);
+    }
+  };
+
+  const [editProfileMutation, { loading }] = useMutation<
+    editProfile,
+    editProfileVariables
+  >(EDIT_PROFILE_MUTATION, {
+    onCompleted,
+    refetchQueries: [{ query: ME_QUERY }],
+  });
+
   const onSubmit = () => {
-    console.log(getValues());
+    const { firstName, email, password } = getValues();
+
+    editProfileMutation({
+      variables: {
+        input: {
+          firstName,
+          email,
+          password,
+        },
+      },
+    });
   };
 
   return (
@@ -63,22 +105,46 @@ export const MyProfile: React.FC = () => {
           />
 
           <input
-            {...register("password")}
+            {...register("password", {
+              minLength: {
+                value: 8,
+                message: "8자리 이상 작성해주세요.",
+              },
+            })}
             className="input mt-10"
             type="password"
             placeholder="패스워드"
           />
+          {errors.password?.message && (
+            <FormError errorMessage={errors.password.message} />
+          )}
 
           <input
+            {...register("re_password", {
+              minLength: {
+                value: 8,
+                message: "8자리 이상 작성해주세요.",
+              },
+              validate: (value) =>
+                value === password.current || "패스워드가 같지않습니다.",
+            })}
             className="input mt-10"
             type="password"
             placeholder="패스워드 확인"
           />
+          {errors.re_password?.message && (
+            <FormError errorMessage={errors.re_password.message} />
+          )}
 
-          <button className="text-sm py-4 mt-14 w-full rounded-md bg-indigo-600">
-            수정하기
-          </button>
+          <FormButton canClick={isValid} message="수정하기" loding={loading} />
         </form>
+      </div>
+
+      <div
+        style={{ opacity: `${bottomMsg}` }}
+        className="rounded-lg py-4 w-full bg-indigo-600 flex justify-center items-center fixed bottom-0 left-0  transition duration-700"
+      >
+        수정되었습니다.
       </div>
     </div>
   );
