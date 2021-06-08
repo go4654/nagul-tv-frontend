@@ -39,7 +39,6 @@ interface IParamsProps {
 
 export const VideoDetail = () => {
   const params = useParams<IParamsProps>();
-  console.log(params.id);
 
   const { data } = useQuery<videoDetail, videoDetailVariables>(
     VIDEO_DETAIL_QUERY,
@@ -51,8 +50,6 @@ export const VideoDetail = () => {
       },
     }
   );
-
-  console.log(data);
 
   return (
     <div className="w-full flex justify-center py-24">

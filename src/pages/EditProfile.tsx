@@ -1,16 +1,25 @@
-import { useHistory } from "react-router";
-import { userLoggedOut } from "../apollo";
+import { EditProfileAvatar } from "../components/editProfile/EditProfileAvatar";
+import { MyProfile } from "../components/editProfile/MyProfile";
 import { PageTitle } from "../components/PageTitle";
 import { Section } from "../components/Section";
+import { useMe } from "../hooks/useMe";
 
 export const EditProfile = () => {
-  const history = useHistory();
+  const { data: userData } = useMe();
+
   return (
     <Section>
       <PageTitle title={"프로필 수정"} />
-      <button className="py-32" onClick={() => userLoggedOut()}>
-        로그아웃
-      </button>
+
+      <div className="flex justify-between mt-32">
+        <EditProfileAvatar
+          avatar={userData?.me.avatar}
+          userName={userData?.me.userName}
+          firstName={userData?.me.firstName}
+        />
+
+        <MyProfile />
+      </div>
     </Section>
   );
 };

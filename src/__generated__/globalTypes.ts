@@ -29,13 +29,17 @@ export interface CreateCommentInput {
   videoId: number;
 }
 
+export interface EditProfileInput {
+  firstName?: string | null;
+  email?: string | null;
+  password?: string | null;
+  avatar?: string | null;
+  userId: number;
+}
+
 export interface LoginInput {
   userName: string;
   password: string;
-}
-
-export interface SeeCommentInput {
-  page?: number | null;
 }
 
 export interface VideoDetailInput {

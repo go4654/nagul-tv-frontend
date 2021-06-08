@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import { Login } from "../pages/Login";
 import { NotFound } from "../components/NotFound";
 import { CreateAccount } from "../pages/CreateAccount";
+import { VideoDetail } from "../pages/VideoDetail";
 
 const anyRoute = [
   {
@@ -18,6 +19,10 @@ const anyRoute = [
   {
     path: routes.createAccount,
     components: <CreateAccount />,
+  },
+  {
+    path: routes.videoDetail,
+    components: <VideoDetail />,
   },
 ];
 

@@ -31,7 +31,6 @@ interface IParamsProps {
 
 export const Comment: React.FC = () => {
   const [bottomMsg, setButtomMsg] = useState(0);
-  const [opBottomMsg, setOpButtomMsg] = useState(1);
   const { data: userData } = useMe();
   const { id } = useParams<IParamsProps>();
 
@@ -41,7 +40,7 @@ export const Comment: React.FC = () => {
 
   const onCompleted = (data: createComment) => {
     const {
-      createComment: { ok },
+      createComment: { ok, error },
     } = data;
 
     if (ok && userData?.me) {
@@ -72,14 +71,21 @@ export const Comment: React.FC = () => {
 
   const onSubmit = () => {
     const { comment } = getValues();
-    createCommentMutation({
-      variables: {
-        input: {
-          videoId: +id,
-          comment,
+
+    if (userData?.me === undefined) {
+      alert("로그인 해주세요!");
+    }
+
+    if (userData?.me) {
+      createCommentMutation({
+        variables: {
+          input: {
+            videoId: +id,
+            comment,
+          },
         },
-      },
-    });
+      });
+    }
   };
 
   return (

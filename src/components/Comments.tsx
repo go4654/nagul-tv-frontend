@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useMe } from "../hooks/useMe";
 
 interface ICommentProps {
   avatar: string | null;
@@ -12,6 +13,9 @@ export const Comments: React.FC<ICommentProps> = ({
   userName,
   comment,
 }) => {
+  const { data: userData } = useMe();
+  console.log(userData?.me.comments);
+
   return (
     <div className="flex items-center my-8">
       {avatar ? (
@@ -28,6 +32,8 @@ export const Comments: React.FC<ICommentProps> = ({
         <div className="text-sm font-semibold">{userName}</div>
         <h3 className="text-sm font-light">{comment}</h3>
       </div>
+
+      {/* {userData?.me.comments ? "❌" : null} */}
     </div>
   );
 };

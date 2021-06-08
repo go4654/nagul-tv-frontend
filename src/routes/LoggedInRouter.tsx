@@ -22,6 +22,21 @@ const clientRoute = [
   },
 ];
 
+const ownerRoute = [
+  {
+    path: routes.home,
+    components: <Home />,
+  },
+  {
+    path: routes.editProfile,
+    components: <EditProfile />,
+  },
+  {
+    path: routes.videoDetail,
+    components: <VideoDetail />,
+  },
+];
+
 const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
 
@@ -38,6 +53,13 @@ const LoggedInRouter = () => {
       <Header />
       <Switch>
         {data.me.role === "Client" &&
+          clientRoute.map((route) => (
+            <Route key={route.path} path={route.path} exact>
+              {route.components}
+            </Route>
+          ))}
+
+        {data.me.role === "Owner" &&
           clientRoute.map((route) => (
             <Route key={route.path} path={route.path} exact>
               {route.components}
