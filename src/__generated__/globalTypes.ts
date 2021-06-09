@@ -36,8 +36,17 @@ export interface CreateVideoInput {
   videoDesc: string;
 }
 
+export interface DeleteCommentInput {
+  commentId: number;
+}
+
 export interface DeleteVideoInput {
   videoId: number;
+}
+
+export interface EditCommentInput {
+  id: number;
+  comment: string;
 }
 
 export interface EditProfileInput {
