@@ -9,7 +9,6 @@ import {
 import ClipLoader from "react-spinners/ClipLoader";
 import { ALL_VIDEO_QUERY } from "../pages/Home";
 import { useState } from "react";
-import { routes } from "../routes";
 
 const DELETE_VIDEO_MUTATION = gql`
   mutation deleteVideo($input: DeleteVideoInput!) {

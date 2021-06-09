@@ -19,6 +19,7 @@ export const VIDEO_DETAIL_QUERY = gql`
         videoName
         videoDesc
         comments {
+          id
           createdAt
           updatedAt
           comment
@@ -66,8 +67,10 @@ export const VideoDetail = () => {
           {data?.videoDetail.video?.comments?.map((comment, index) => (
             <Comments
               key={index}
+              userId={comment.user.id}
               avatar={comment.user.avatar}
               userName={comment.user.userName}
+              commentId={comment.id}
               comment={comment.comment}
             />
           ))}

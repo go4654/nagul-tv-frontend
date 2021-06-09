@@ -5,10 +5,6 @@ import { FormError } from "../../components/FormError";
 import { useState } from "react";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
-import {
-  createVideo,
-  createVideoVariables,
-} from "../../__generated__/createVideo";
 import imageCompression from "browser-image-compression";
 import { ALL_VIDEO_QUERY } from "../Home";
 import { Link, useParams } from "react-router-dom";

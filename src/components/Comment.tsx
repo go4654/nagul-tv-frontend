@@ -11,7 +11,7 @@ import {
 import { VIDEO_DETAIL_QUERY } from "../pages/VideoDetail";
 import { useMe } from "../hooks/useMe";
 import { useState } from "react";
-import { FormButton } from "./FormButton";
+import CircleLoader from "react-spinners/CircleLoader";
 
 const CREATE_COMMENT_MUTATION = gql`
   mutation createComment($input: CreateCommentInput!) {
@@ -35,19 +35,13 @@ export const Comment: React.FC = () => {
   const { data: userData } = useMe();
   const { id } = useParams<IParamsProps>();
 
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isValid },
-  } = useForm<IFormProps>({
+  const { register, handleSubmit, getValues, setValue } = useForm<IFormProps>({
     mode: "onChange",
   });
 
   const onCompleted = (data: createComment) => {
     const {
-      createComment: { ok, error },
+      createComment: { ok },
     } = data;
 
     if (ok && userData?.me) {
@@ -55,7 +49,7 @@ export const Comment: React.FC = () => {
       setButtomMsg(1);
       setInterval(() => {
         setButtomMsg(0);
-      }, 2000);
+      }, 5000);
     }
   };
 
@@ -112,14 +106,18 @@ export const Comment: React.FC = () => {
             placeholder="댓글 추가..."
           />
           <button className="w-24 ml-4 h-10 bg-gray-600 text-sm rounded flex justify-center items-center ">
-            댓글 등록
+            {loading ? (
+              <CircleLoader loading={loading} color={"salmon"} size={5} />
+            ) : (
+              "댓글 등록"
+            )}
           </button>
         </form>
       </div>
 
       <div
         style={{ opacity: `${bottomMsg}` }}
-        className="rounded-lg py-4 px-32 bg-indigo-600 flex justify-center items-center fixed bottom-0 left-0  transition duration-700"
+        className="rounded-lg py-4 w-full bg-indigo-600 flex justify-center items-center fixed bottom-0 left-0  transition duration-700"
       >
         댓글이 등록되었습니다!
       </div>

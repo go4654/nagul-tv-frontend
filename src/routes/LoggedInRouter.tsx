@@ -9,6 +9,7 @@ import { VideoDetail } from "../pages/VideoDetail";
 import { AdminPage } from "../pages/Owner/AdminPage";
 import ClipLoader from "react-spinners/ClipLoader";
 import { EditVideo } from "../pages/Owner/EditVideo";
+import { EditComment } from "../pages/EditComment";
 
 const clientRoute = [
   {
@@ -22,6 +23,10 @@ const clientRoute = [
   {
     path: routes.videoDetail,
     components: <VideoDetail />,
+  },
+  {
+    path: routes.editComment,
+    components: <EditComment />,
   },
 ];
 
@@ -45,6 +50,10 @@ const ownerRoute = [
   {
     path: routes.editVideo,
     components: <EditVideo />,
+  },
+  {
+    path: routes.editComment,
+    components: <EditComment />,
   },
 ];
 

@@ -18,6 +18,7 @@ export interface videoDetail_videoDetail_video_comments_user {
 
 export interface videoDetail_videoDetail_video_comments {
   __typename: "Comment";
+  id: number;
   createdAt: any;
   updatedAt: any;
   comment: string;
