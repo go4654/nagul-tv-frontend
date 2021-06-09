@@ -5,4 +5,5 @@ export const routes = {
   editProfile: "/edit-profile",
   videoDetail: "/video-detail/:id",
   admin: "/admin",
+  editVideo: "/edit-video/:id",
 };

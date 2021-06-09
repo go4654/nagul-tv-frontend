@@ -9,6 +9,7 @@ import {
 import ClipLoader from "react-spinners/ClipLoader";
 import { ALL_VIDEO_QUERY } from "../pages/Home";
 import { useState } from "react";
+import { routes } from "../routes";
 
 const DELETE_VIDEO_MUTATION = gql`
   mutation deleteVideo($input: DeleteVideoInput!) {
@@ -34,12 +35,10 @@ export const AllVideo: React.FC<IAllVideoProps> = ({
 }) => {
   const { data: userData } = useMe();
   const [bottomMsg, setButtomMsg] = useState(0);
-  console.log(bottomMsg);
   const onCompleted = (data: deleteVideo) => {
     const {
       deleteVideo: { ok },
     } = data;
-    console.log(data);
 
     if (ok) {
       setButtomMsg(1);
@@ -87,15 +86,26 @@ export const AllVideo: React.FC<IAllVideoProps> = ({
         <p className="opacity-60 font-extralight">{videoDesc}</p>
       </Link>
       {userData?.me.role === "Owner" && (
-        <div
-          onClick={onClickDelete}
-          className="py-2 w-16 text-center mt-4 rounded-md text-sm bg-red-500 cursor-pointer"
-        >
-          {loading ? (
-            <ClipLoader size={20} loading={loading} color="salmon" />
-          ) : (
-            "삭제"
-          )}
+        <div className="flex">
+          <div
+            onClick={onClickDelete}
+            className="py-2 w-16 text-center mt-4 mr-3 rounded-md text-sm bg-red-500 cursor-pointer"
+          >
+            {loading ? (
+              <ClipLoader size={20} loading={loading} color="salmon" />
+            ) : (
+              "삭제"
+            )}
+          </div>
+          <Link to={`/edit-video/${id}`}>
+            <div className="py-2 w-16 text-center mt-4 rounded-md text-sm bg-yellow-500 cursor-pointer">
+              {loading ? (
+                <ClipLoader size={20} loading={loading} color="salmon" />
+              ) : (
+                "수정"
+              )}
+            </div>
+          </Link>
         </div>
       )}
 

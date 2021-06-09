@@ -47,6 +47,14 @@ export interface EditProfileInput {
   avatar?: string | null;
 }
 
+export interface EditVideoInput {
+  video?: string | null;
+  coverImg?: string | null;
+  videoName?: string | null;
+  videoDesc?: string | null;
+  videoId: number;
+}
+
 export interface LoginInput {
   userName: string;
   password: string;

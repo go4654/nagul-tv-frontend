@@ -8,6 +8,7 @@ import { EditProfile } from "../pages/EditProfile";
 import { VideoDetail } from "../pages/VideoDetail";
 import { AdminPage } from "../pages/Owner/AdminPage";
 import ClipLoader from "react-spinners/ClipLoader";
+import { EditVideo } from "../pages/Owner/EditVideo";
 
 const clientRoute = [
   {
@@ -40,6 +41,10 @@ const ownerRoute = [
   {
     path: routes.admin,
     components: <AdminPage />,
+  },
+  {
+    path: routes.editVideo,
+    components: <EditVideo />,
   },
 ];
 
